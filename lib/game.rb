@@ -8,25 +8,25 @@ class Game
   # загаданного слова и пустой массив для дальнейшего сбора в него вводимых
   # букв.
   def initialize(word)
-    @letters = normalized_word(word.chars)
+    @letters = word.chars
     @user_guesses = []
   end
-  def normalized_word(word)
-    word = word.map do |letter|
-      if letter == "Ё"
-        letter = "Е"
-      elsif letter == "Й"
-        letter = "И"
-      else
-        letter
-      end
+
+  def normalize_letter(letter)
+    case letter
+    when "Ё" then "Е"
+    when "Й" then "И"
+    else letter
     end
-    word
-  end 
+  end
+  
+  def normalized_word(word)
+    word.map {|letter| normalize_letter(letter)}
+  end
   # Возвращает массив букв, введенных пользователем, но отсутствующих в
   # загаданном слове (ошибочные буквы)
   def errors
-    @user_guesses - @letters
+    @user_guesses - normalized_word(@letters)
   end
 
   # Возвращает количество ошибок, сделанных пользователем
@@ -46,7 +46,7 @@ class Game
   def letters_to_guess
     result =
       @letters.map do |letter|
-        if @user_guesses.include?(letter)
+        if @user_guesses.include?(normalize_letter(letter))
           letter
         else
           nil
@@ -70,14 +70,14 @@ class Game
   # Если игра не закончена и передаваемая буква отсутствует в массиве
   # введённых букв, то закидывает передаваемую букву в массив "попыток".
   def play!(letter)
-    if !over? && !@user_guesses.include?(normal_letter = normalized_word(letter.chars).join)
+    if !over? && !@user_guesses.include?(normal_letter = normalize_letter(letter))
       @user_guesses << normal_letter
     end
   end
 
   # Возвращает true, если не осталось неотгаданных букв (пользователь выиграл)
   def won?
-    (@letters - @user_guesses).empty?
+    (normalized_word(@letters) - @user_guesses).empty?
   end
 
   # Возвращает загаданное слово, склеивая его из загаданных букв
