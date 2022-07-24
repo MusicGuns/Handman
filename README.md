@@ -1,38 +1,66 @@
-# Игра "Висилеца"
-## Суть Игры
-Вам нужно будет отгадать слово, для этого вам предстоит по очереди вводить буквы однку за другой. На экране вам будет доступна вся информация о том сколько вы букв отгадали, сколько осталось ошибок и тд.
+Table of Contents
+===
+[About](#about)  
+[How to edit word dictionary](#edit)  
+[How to use](#use)
 
-Пример интерфейса показан ниже:
+<a name="about"><h3>About</h3></a>
+----
+This program was written on [**Ruby**](https://www.ruby-lang.org/en/). It is simple implementation of [**hangman**](https://en.wikipedia.org/wiki/Hangman_(game)) to play in console. Functionality is _obvious_.
 
-Слово: К О __ О __ __
-
-          _______
-          
-          |/
-          
-          |     ( )
-          
-          |      |
-          
-          |
-          
-          |
-          
-          |
-          
-          |
-          
-          |
-        
-        __|________
-        
-        |         |
-
-Ошибки (2): Х, У
-
-У вас осталось ошибок: 5
-
+#### View
+```
+Всем привет!
+Слово: __ __ __ __ __ __ __
+            _______
+            |/
+            |
+            |
+            |
+            |
+            |
+            |
+            |
+          __|________
+          |         |
+Ошибки (0): 
+У вас осталось ошибок: 7
 Введите следующую букву:
+```
 
-## Запуск
-Для того чтобы запустить программу введите в консоли команду "ruby main.rb", находясь в папке, где она лежит.
+<a name="edit"><h3>How to edit word dictionary</h3></a>
+----
+Open ```/data/words.txt```
+```
+РУБИ
+...
+СЧАСТЬЕ
+```
+Simply add there your words (one word per line).
+
+Example:
+```
+РУБИ
+...
+СЧАСТЬЕ
+КОТ
+```
+
+<a name="use"><h3>How to use</h3></a>
+---------------
+First of all **Ruby** & **Git** must be installed (on Debian based):
+```
+sudo apt install ruby git
+```
+clone repo: 
+```
+git clone https://github.com/moonmeander47/hangman.git && cd hangman
+```
+then you can easily enjoy with (1st run):
+```
+bundle install && bundle exec ruby main.rb
+```
+other runs:
+```
+bundle exec ruby main.rb
+```
